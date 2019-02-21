@@ -1,0 +1,1566 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{BW\_141b\_midterm}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{STA 141B: Midterm (or Super-Homework if you
+prefer)}\label{sta-141b-midterm-or-super-homework-if-you-prefer}
+
+\subsubsection{Worth 300 Points}\label{worth-300-points}
+
+Fall 2018
+
+    \subsection{Information}\label{information}
+
+After the colons (in the same line) please write just your first name,
+last name, and the 9 digit student ID number below.
+
+First Name: Bailey
+
+Last Name: Wang
+
+Student ID: 914955801
+
+    \subsection{Instructions}\label{instructions}
+
+Please print your answer notebook to pdf (make sure that it is not
+unnecessarily long due to long output) and submit as the homework
+solution with your zip file.
+
+For readability you,
+
+\begin{itemize}
+\tightlist
+\item
+  MUST add cells in between the exercise statements and add answers
+  within them and
+\item
+  MUST NOT modify the existing cells, particularly not the problem
+  statement
+\item
+  you may add multiple cells between exercise cells
+\end{itemize}
+
+To make markdown, please switch the cell type to markdown (from code) -
+you can hit 'm' when you are in command mode - and use the markdown
+language. For a brief tutorial see:
+https://daringfireball.net/projects/markdown/syntax
+
+    \subsection{Trans-Atlantic Slave
+Trade}\label{trans-atlantic-slave-trade}
+
+In this homework, we will uncover some of the numbers behind the
+Trans-atlantic slave trade (TAST), also known as the middle passage,
+that brought African slaves to the Americas. The middle passage is
+reported to have forcibly migrated over 10 million Africans to the
+Americas over a roughly 3 century time span. Many aspects of the TAST is
+little known by most people, such as the countries that constituted this
+network of slave ships, the regions from which the slaves were taken,
+and the number of slaves captured from Africa.
+
+This last number is especially important since the number of slaves
+taken from Africa can impact other estimates that result from this. For
+example, when estimating the population of Africa in a given decade,
+demographers will use population growth models and more recent census
+data. For example, there are roughly X number of people in Africa and
+such populations tend to grow at rate M. Then if we want to calculate
+the population one century ahead then we just apply a simple formula
+that assumes that the population grows at this rate. But if the
+population is being drained by the slave trade, then this number will
+tend to be underestimated because the growth rate is overestimated. To
+account for this models need to take into account this drain on the
+population.
+
+Throughout this homework you will need to follow the principles of
+graphical excellence and the grammar of graphics. \textbf{Use only
+Plotnine for your graphics}, do not use Pyplot, Seaborn, or Plotly since
+they do not follow closely the grammar of graphics. Be sure to include
+titles and necessary contextual captions.
+
+\textbf{Warning:} The Trans-Atlantic Slave Trade remains one of the most
+horrific abuses of human rights in history. This homework deals with the
+numbers behind this forced migration, please be aware that this is a
+sensitive topic for possibly yourself and others. A suitable amount of
+respect and seriousness is required when dealing with this data.
+
+    \textbf{Exercise 1.} The data.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Read in the Trans-Atlantic Slave Trade database with Pandas. Hint: if
+  you use the unix tool \texttt{file} you can find that this CSV is
+  encoded with iso-8859-1 character set. Make sure that all missing
+  values are encoded as NaN.
+\item
+  There is lots of missingness in this data, and some of these variables
+  are imputed. We will be imputing some of these variables ourselves, so
+  delete any variable that ends with 'imp'.
+\item
+  Open up the pdf file: TAST\_codebook.pdf which is the data dictionary
+  for this and other related datasets. Many of the variables in the
+  codebook are not in this dataset because it is describing an updated
+  dataset.
+\item
+  Create a list where you describe the meaning of the columns of your
+  imported dataframe. You can group similar columns together when
+  describing their rough meaning, such as ownera,...,ownerp are owners
+  of the slave ships.
+\end{enumerate}
+
+Throughout we will disregard all time variables other than year since
+they are unreliable.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}Question 1}
+        
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{io}
+        \PY{k+kn}{import} \PY{n+nn}{plotnine} \PY{k}{as} \PY{n+nn}{p9}
+        \PY{k+kn}{from} \PY{n+nn}{plotnine} \PY{k}{import} \PY{n}{ggplot}\PY{p}{,} \PY{n}{aes}\PY{p}{,} \PY{n}{geom\PYZus{}density}\PY{p}{,} \PY{n}{theme}\PY{p}{,} \PY{n}{element\PYZus{}text}\PY{p}{,} \PY{n}{geom\PYZus{}point}\PY{p}{,} \PY{n}{geom\PYZus{}line}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{smf}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ignore}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{pwd}()
+        
+        \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tastdb\PYZhy{}2010.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{latin\PYZhy{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                           \PY{n}{na\PYZus{}values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{low\PYZus{}memory}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        
+        \PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{natinimp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ptdepimp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mjbyptimp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mjslptimp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{voy1imp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{voy2imp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaximp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vymrtimp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slamimp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{,}\PY{n}{regex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{}fill all empty with NAs}
+        \PY{c+c1}{\PYZsh{}https://stackoverflow.com/questions/30392720/pandas\PYZhy{}dataframe\PYZhy{}replace\PYZhy{}blanks\PYZhy{}with\PYZhy{}nan/35604582}
+        \PY{c+c1}{\PYZsh{}data.columns}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\item
+  Voyageid: voyage identification
+\item
+  evgreen: Voyage in 1999
+\item
+  shipname: Name of vessel
+\item
+  national: Country in which ship registered
+\item
+  placcons: Where vessel constructed
+\item
+  yrcons: Year vessel construction
+\item
+  placreg: place of vessel registration
+\item
+  yrreg: year of vessil registration
+\item
+  rig: type of vessel
+\item
+  tonnage: ton
+\item
+  tonmode: British measured ton
+\item
+  guns: gunsmounted
+\item
+  owner: owner of venture
+\item
+  fate: voyage outcome for owner, vessel if captured, or slaves
+\item
+  resistance: African resistance
+\item
+  placltra: First slave purchase location
+\item
+  npafttra: port before crossing Atlantic
+\item
+  sla1port: first slave landing
+\item
+  adpsale: second slave landing
+\item
+  portret: voyage ending
+\item
+  yearam: year of arrival at port
+\item
+  Date\_dep: Date voyage began
+\item
+  Date\_buy: Date slave purchase began
+\item
+  Date\_leftAfr: Date vessel left last slave port
+\item
+  Date\_land1: Date slave first landed
+\item
+  Date\_depam: Date voyage return
+\item
+  Date\_end: Date voyage compeleted
+\item
+  captaina: Captain's name
+\item
+  crew: crew at voyage outset, crew at first landing
+\item
+  crewdied: Crew died during complete voyage
+\item
+  slintend: slaves intended for first port
+\item
+  ncar13: slaves carried from first port
+\item
+  tslavesd: total slaves on board at departure from last slave port
+\item
+  slaarriv: total slaves arrived at first port
+\item
+  slas32: slaves disembarked at first place
+\item
+  menrat7: percentage of men at departure of arrival
+\item
+  womrat7: percentage of women at departure of arrival
+\item
+  boyrat7: percentage of boys at departure of arrival
+\item
+  girlrat7: percentage of girls at departure of arrival
+\item
+  malrat7: ratio of male at departure of arrival
+\item
+  chilrat7: ratio of children at departure of arrival
+\item
+  jamcaspr: Average price of slaves in Jamaica
+\item
+  vymrtrat: slave mortality rate
+\item
+  sourcea: source of information
+\end{itemize}
+
+    \textbf{Exercise 2.} First pass at estimating the total number of
+captives.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  We will ultimately try to estimate the number of people captured into
+  slavery and forced through the middle passage. What variable would you
+  use to estimate the total number of captives taken from Africa? Let me
+  call this variable Var A in this problem statement. How much of the
+  data for Var A is missing?
+\item
+  Create an initial estimate of the total number of captives taken from
+  Africa by assuming that Var A is Missing Completely at Random.\\
+\item
+  What other variables do you expect to be associated with Var A and
+  why? Give at least three possibilities. Which will probably be the
+  most strongly associated with this variable? (I will be looking for a
+  specific variable to be listed so be sure to think about the most
+  strongly associated one.)
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}Question 2}
+        \PY{n}{data2} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+        \PY{n}{varA}\PY{o}{=}\PY{n}{data2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tslavesd}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}create sum for tslavesd with numbers}
+        \PY{n}{varA}
+        
+        \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{n}{data2}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{c+c1}{\PYZsh{}estimate total captives}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} 11569160.328337597
+\end{Verbatim}
+            
+    There are 26732 entires with NA values.
+
+I used tslavesd to estimnate the number of slaves in the slave trade by
+taking the mean and multipling it by the length of the entire dataframe.
+
+The three possible associated variables with VarA that I choose are
+tonnage, slaarriv, and crew. Tonnage relates to the size of the vessel,
+since a larger ship will be able to carry more slaves. I think that crew
+is important, because the larger crew means there are more slaves on
+board the ship. Slaarriv is important because it shows the amount of
+slaves arriving at the first location which greatly relates to slavesd.
+
+    \textbf{Exercise 3.} The flag that the ships flew.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  We want to understand the trends of the nationality of the slave ships
+  (the flag that they flew under is in the national variable). Subselect
+  the values of \texttt{national} that have more than 100 voyages with
+  that value.\\
+\item
+  Create a DataFrame that filters out the voyages where
+  \texttt{national} does not have one of these values. You should be
+  retaining voyages with only these most common values.
+\item
+  Create a variable, \texttt{flag}, that is a string of easily readable
+  names for these values by looking them up in the pdf codebook.
+\item
+  Using Plotnine, plot the counts of the voyages by flag as a function
+  of voyage year. Think about how best to display the count of a voyage
+  by year and then how should you be including the flag variable.
+\item
+  In this plot, what are the geometric elements and aesthetic mappings?
+  What other components of the grammar of graphics are you using?
+\item
+  Do you observe any abrupt changes in the patterns of these counts for
+  a given flag? Investigate the cause for this change (using Google,
+  etc.).
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}Question 3.1\PYZhy{}3.3}
+        
+        \PY{c+c1}{\PYZsh{}Collabarated with Phoebe Zhang and Tiffany Chen}
+        
+        \PY{n}{voyage\PYZus{}100} \PY{o}{=} \PY{n}{data2}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{national}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}count subset}
+        \PY{n}{voyage\PYZus{}100} \PY{o}{=} \PY{n}{voyage\PYZus{}100}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{voyage\PYZus{}100}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{voyageid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{100}\PY{p}{]} \PY{c+c1}{\PYZsh{}subset by greater than 100}
+        \PY{n}{voyage\PYZus{}100\PYZus{}ix} \PY{o}{=} \PY{n}{voyage\PYZus{}100}\PY{o}{.}\PY{n}{index} \PY{c+c1}{\PYZsh{}create index}
+        \PY{n}{voyage\PYZus{}100\PYZus{}from\PYZus{}data2} \PY{o}{=} \PY{n}{data2}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{national}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}
+                                          \PY{n}{isin}\PY{p}{(}\PY{n}{voyage\PYZus{}100\PYZus{}ix}\PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}apply new index onto dataframe}
+        
+        \PY{n}{table} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mf}{1.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{4.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Portugal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{5.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Brazil}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{7.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Great\PYZus{}Britain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                 \PY{l+m+mf}{8.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Netherlands}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{9.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{USA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{10.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{France}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{11.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Denmark}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        \PY{c+c1}{\PYZsh{}dictionary to convert float into str}
+        
+        \PY{n}{voyage\PYZus{}100\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{p}{[}\PY{n}{table}\PY{p}{[}\PY{n}{row}\PY{p}{]} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{voyage\PYZus{}100\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{national}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+        \PY{c+c1}{\PYZsh{}for loop to change float into str through dictionary}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{}Question 3.4}
+         \PY{p}{(}\PY{n}{p9}\PY{o}{.}\PY{n}{ggplot}\PY{p}{(}\PY{n}{voyage\PYZus{}100\PYZus{}from\PYZus{}data2}\PY{p}{,} \PY{n}{aes}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{count}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{voyageid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fill}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}histogram}\PY{p}{(}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}freqpoly}\PY{p}{(}\PY{n}{na\PYZus{}rm}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} 
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{facet\PYZus{}wrap}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZti{}flag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ncol}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{theme}\PY{p}{(}\PY{n}{figure\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{xlab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{ylab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{ggtitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Voyage Counts per year from each nation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} <ggplot: (295270499)>
+\end{Verbatim}
+            
+    \section{Aesthetic 3.4}\label{aesthetic-3.4}
+
+\subsubsection{Components}\label{components}
+
+\begin{itemize}
+\tightlist
+\item
+  voyage\_100\_from\_data2 is a Pandas DataFrame
+\item
+  'yearam','voyageid', 'flag'
+\item
+  geom\_histogram create a histogram
+\item
+  geom\_freqpoly create the outline
+\end{itemize}
+
+\subsubsection{Creating the plot}\label{creating-the-plot}
+
+\begin{itemize}
+\tightlist
+\item
+  data was used with the arguments x to yearam and count to voyageid
+  with fill to flag
+\item
+  figure size to enlarge the size of the graph
+\item
+  figure size enlarged
+\item
+  xlab, ylab, title to name them
+\item
+  theme -\/- figure\_size to enlarge the graph
+\item
+  facet wrap seperates into multiple graphs dependent on flag
+\end{itemize}
+
+    During the 1700s and 1800s was when the demand for slaves increased
+greatly due to the need for more plantation hands. A lot of the drop
+occurs during the late 1800s, since slavery is ending during that time
+period. Brazil, Denmark, and Spain all started late, because they had
+already banned slavery, therefore it shows the arrival of slaves.
+
+    \textbf{Exercise 4.} Looking at some of these ships.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Search for the slave ship mentioned in the following wikipedia
+  article: https://en.wikipedia.org/wiki/Brookes\_(ship) Hint: Look at
+  all records of ships with 'Brook' in the name and try to match the
+  characteristics to those described. How many voyages for this ship are
+  in the data (try to exclude ships with the same name)?
+\item
+  Create a variable that is True if there was a resistance (like a slave
+  revolt) on the ship. Plot the density of ships as a function of year
+  with and without revolts and compare these distributions.
+\item
+  The movie Amistad was based on a real slave ship and slave uprising.
+  Read about it here: https://en.wikipedia.org/wiki/La\_Amistad Try to
+  find this ship by searching for it by name and also searching for
+  ships in the same 10 year period as this event with a slave
+  resistance. If you think you found it describe it, otherwise describe
+  the events of another voyage that you did find.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}Question 4.1}
+        
+        \PY{c+c1}{\PYZsh{}https://www.encyclopediavirginia.org/\PYZus{}Description\PYZus{}of\PYZus{}the\PYZus{}Slave\PYZus{}Ship\PYZus{}Brookes\PYZus{}chapter\PYZus{}6\PYZus{}of\PYZus{}Liverpool\PYZus{}and\PYZus{}Slavery\PYZus{}by\PYZus{}a\PYZus{}Genuine\PYZus{}Dicky\PYZus{}Sam\PYZus{}1884?fbclid=IwAR1yEqorzYEj03BkrOaQJHFyWW5P8\PYZhy{}SmzzTZ\PYZhy{}hi8qWmKSzuZ03\PYZhy{}AQkZlnaw}
+        \PY{n}{brook\PYZus{}data} \PY{o}{=} \PY{n}{data2}\PY{p}{[}\PY{n}{data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{shipname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Brook}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}\PY{p}{]} 
+        \PY{n}{brook\PYZus{}data}\PY{p}{[}\PY{n}{brook\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tonnage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{297}\PY{p}{]} \PY{c+c1}{\PYZsh{}find ship name, find tonnage}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}        voyageid  evgreen shipname  national  placcons  yrcons  placreg  \textbackslash{}
+        29534     80663      1.0   Brooks       7.0   10432.0  1781.0  10432.0   
+        29535     80664      1.0   Brooks       7.0   10432.0  1781.0  10432.0   
+        29536     80665      1.0   Brooks       7.0   10432.0  1781.0  10432.0   
+        
+                yrreg  rig  tonnage   {\ldots}              sourcei  \textbackslash{}
+        29534  1781.0  4.0    297.0   {\ldots}        LST,1744-1786   
+        29535  1783.0  4.0    297.0   {\ldots}        LST,1744-1786   
+        29536  1783.0  4.0    297.0   {\ldots}    PP,1789(629),XXIV   
+        
+                                       sourcej            sourcek sourcel  \textbackslash{}
+        29534                        Crooks,55                NaN     NaN   
+        29535                Lambert,73,81-101  Lambert,73,109-21     NaN   
+        29536  Lambert,69,III,Appendix,Jamaica                NaN     NaN   
+        
+                       sourcem sourcen sourceo sourcep sourceq sourcer  
+        29534  Williams,585-86     NaN     NaN     NaN     NaN     NaN  
+        29535              NaN     NaN     NaN     NaN     NaN     NaN  
+        29536     Williams,585     NaN     NaN     NaN     NaN     NaN  
+        
+        [3 rows x 89 columns]
+\end{Verbatim}
+            
+    24 'Brookes' ships were created, the Wiki states that the ship's
+blueprints were published in 1788, therefore only the ships with NaN in
+their yrcons (vessel's constuction year) are removed. The Wiki states
+that Brookes did only 3 trips of which contained 638, 744, and 609
+slaves. Looking at the data for the slaves intended for the first port,
+the wiki states around 638, therefore, the ship that intended 700 slaves
+could be the Brookes from the Wiki. The final variable that was taken
+from another Wiki was that the tonnage was equal to 297. Therefore, it
+is dropped down to 3 options.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}Question 4.2}
+        \PY{n}{revolt\PYZus{}from\PYZus{}data2} \PY{o}{=} \PY{n}{data2}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{revolt\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{resistance\PYZus{}tf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{resistance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{False}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}create boolean variable for resistance}
+        \PY{n}{revolt\PYZus{}from\PYZus{}data2} \PY{o}{=} \PY{n}{revolt\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{n}{revolt\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date\PYZus{}dep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{k+kc}{False}\PY{p}{]}
+        \PY{n}{revolt\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year\PYZus{}dep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{revolt\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date\PYZus{}dep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{4}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+        \PY{n}{revolt\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year\PYZus{}dep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{revolt\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year\PYZus{}dep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{p}{(}\PY{n}{p9}\PY{o}{.}\PY{n}{ggplot}\PY{p}{(}\PY{n}{revolt\PYZus{}from\PYZus{}data2}\PY{p}{,} \PY{n}{aes}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year\PYZus{}dep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{resistance\PYZus{}tf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}density}\PY{p}{(}\PY{p}{)}
+        \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{theme}\PY{p}{(}\PY{n}{figure\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+        \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{xlab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{ylab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Density}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{labels}\PY{o}{.}\PY{n}{ggtitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Density of Slave Resistance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} <ggplot: (7542363063)>
+\end{Verbatim}
+            
+    Both distributions follow a left-skewed distribution. Slave resistances
+peaked around the 1750s, while the ones without has a two maximums. The
+portion of observations on the resistance is so small that it is
+difficult to give an accurate analysis on the densities.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}Question 4.3}
+         \PY{n}{amistad} \PY{o}{=} \PY{n}{data2}\PY{p}{[}\PY{n}{data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{shipname}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amistad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}\PY{p}{]}
+         \PY{n}{data2}\PY{p}{[}\PY{p}{(}\PY{n}{data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1849}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1829}\PY{p}{)} \PY{o}{\PYZam{}}
+               \PY{p}{(}\PY{n}{data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{resistance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==} \PY{l+m+mf}{1.0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{national}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{]} 
+         \PY{c+c1}{\PYZsh{}find ship name, after checking use different conditions}
+         \PY{c+c1}{\PYZsh{}use years, and resistance and national}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}       voyageid  evgreen shipname  national  placcons  yrcons  placreg  yrreg  \textbackslash{}
+         2047      2071      1.0      NaN       1.0       NaN     NaN      NaN    NaN   
+         
+               rig  tonnage   {\ldots}    sourcei  sourcej sourcek sourcel sourcem sourcen  \textbackslash{}
+         2047  2.0     45.0   {\ldots}        NaN      NaN     NaN     NaN     NaN     NaN   
+         
+              sourceo sourcep sourceq sourcer  
+         2047     NaN     NaN     NaN     NaN  
+         
+         [1 rows x 89 columns]
+\end{Verbatim}
+            
+    First I searched based on the shipname, however, the descriptions did
+not match those in the Wiki link. Next I searched between the years and
+looked at resistances with Spanish national. Upon those criteria, I
+found the ship that closely matches the one from the Wiki.
+
+    \textbf{Exercise 5.} Other patterns.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The arrival and departure locations are quite detailed. Look in the
+  appendix of the codebook for the location codes. Make a coarser
+  version of both arrival and departure port variables (select just the
+  last departure and first arrival) so that for example,
+
+\begin{verbatim}
+30000 Caribbean 36100 Martinique 36101 Fort-Royale
+\end{verbatim}
+
+  is just encoded as '3' or Caribbean.
+\item
+  Plot the trend of voyages as a function of arrival location. What
+  trends do you see?
+\item
+  Do the same for departure location.
+\item
+  Plot the ratio of captives that are men as a function of year. Include
+  a smoother to describe the over all trend. Also include in the plot
+  another possible confounding variable.
+\item
+  Describe the geoms, aesthetic mappings, and other aspects of the plot.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}Question 5.1}
+         \PY{n}{data3} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{arrival\PYZus{}1}\PY{o}{=} \PY{n}{data3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sla1port}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         \PY{n}{arrival\PYZus{}1\PYZus{}ix} \PY{o}{=} \PY{n}{arrival\PYZus{}1}\PY{o}{.}\PY{n}{index}
+         \PY{n}{arrival\PYZus{}from\PYZus{}data2} \PY{o}{=} \PY{n}{data3}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{data3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sla1port}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}
+                                        \PY{n}{isin}\PY{p}{(}\PY{n}{arrival\PYZus{}1}\PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{table\PYZus{}2} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mf}{1.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Europe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{l+m+mf}{2.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{North\PYZus{}America}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{l+m+mf}{3.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Caribbean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{l+m+mf}{4.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spanish\PYZus{}territory\PYZus{}America}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{l+m+mf}{5.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Brazil}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{l+m+mf}{6.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Africa}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{8.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{arrival\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sla1port}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{arrival\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sla1port}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{10000}\PY{p}{)}
+         
+         \PY{n}{arrival\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrival\PYZus{}loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{p}{[}\PY{n}{table\PYZus{}2}\PY{p}{[}\PY{n}{row}\PY{p}{]} \PY{k}{for} 
+                                            \PY{n}{row} \PY{o+ow}{in} \PY{n}{arrival\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sla1port}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}Question 5.2}
+         
+         \PY{p}{(}\PY{n}{p9}\PY{o}{.}\PY{n}{ggplot}\PY{p}{(}\PY{n}{arrival\PYZus{}from\PYZus{}data2}\PY{p}{,} \PY{n}{aes}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrival\PYZus{}loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{count}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{voyageid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fill}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrival\PYZus{}loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}histogram}\PY{p}{(}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{,}\PY{n}{size}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{theme}\PY{p}{(}\PY{n}{axis\PYZus{}text\PYZus{}x}\PY{o}{=}\PY{n}{element\PYZus{}text}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{,} \PY{n}{hjust}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{theme}\PY{p}{(}\PY{n}{figure\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{labels}\PY{o}{.}\PY{n}{ggtitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Location Arrival vs Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} <ggplot: (295280339)>
+\end{Verbatim}
+            
+    The vast majority of the arrivals are in the Caribbeans compared to all
+the other locations. It is surprising that Brazil has a higher arrival
+of slaves compared to the North America, since a lot of the slaves were
+used as plantation labor in the North America. However, it is not
+surprising that Africa and Europe had the lowest arrival, since all the
+departures come from Africa. Europe mostly exported slaves from Africa
+to other locations.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}Question 5.3}
+         
+         \PY{c+c1}{\PYZsh{}Collabarated with Xiaoxi Liu}
+         \PY{n}{voyage\PYZus{}100\PYZus{}from\PYZus{}data2} \PY{o}{=} \PY{n}{voyage\PYZus{}100\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{n}{voyage\PYZus{}100\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{menrat7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}
+                                                       \PY{n}{isna}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{k+kc}{False}\PY{p}{]}
+         \PY{n}{voyage\PYZus{}100\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{menrat7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{voyage\PYZus{}100\PYZus{}from\PYZus{}data2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{menrat7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+         \PY{n}{voyage\PYZus{}100\PYZus{}men\PYZus{}from\PYZus{}data2}\PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{average\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} 
+                                                  \PY{n}{voyage\PYZus{}100\PYZus{}from\PYZus{}data2}\PY{o}{.}
+                                                  \PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                                                  \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{menrat7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}create new dataframe for average ratio by subsetting and taking mean}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{}Question 5.4}
+         
+         \PY{p}{(}\PY{n}{p9}\PY{o}{.}\PY{n}{ggplot}\PY{p}{(}\PY{n}{voyage\PYZus{}100\PYZus{}men\PYZus{}from\PYZus{}data2}\PY{p}{,} \PY{n}{aes}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{average\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}point}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{brown}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{theme}\PY{p}{(}\PY{n}{figure\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{xlab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{ylab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Male Ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{labels}\PY{o}{.}\PY{n}{ggtitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ratio of Male vs year (without Confounding Variable)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} <ggplot: (290403960)>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{p}{(}\PY{n}{p9}\PY{o}{.}\PY{n}{ggplot}\PY{p}{(}\PY{n}{voyage\PYZus{}100\PYZus{}men\PYZus{}from\PYZus{}data2}\PY{p}{,} \PY{n}{aes}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{average\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}point}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lowess}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{facet\PYZus{}wrap}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZti{}flag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ncol}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{xlab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{ylab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Male Ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{labels}\PY{o}{.}\PY{n}{ggtitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ratio of Male vs year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} <ggplot: (-9223372036559414752)>
+\end{Verbatim}
+            
+    The Netherlands, USA and Spain had the largest decreases of men taken.
+While Denmark, and Brazil had the increases. Surprisingly, France and
+Britain have a pretty plateau for men taken. The data has a lot of
+missing data, therefore the trend cannot be fully trusted.
+
+    \section{Aesthetic 5.2}\label{aesthetic-5.2}
+
+\subsubsection{Components}\label{components}
+
+\begin{itemize}
+\tightlist
+\item
+  arrival\_from\_data2 is a Pandas DataFrame
+\item
+  'yearam', 'voyageid', 'arrival\_loc'
+\item
+  geom\_histogram -\/- bins widen the size
+\end{itemize}
+
+\subsubsection{Creating the plot}\label{creating-the-plot}
+
+\begin{itemize}
+\tightlist
+\item
+  data was used with the arguments x to yearam and count to voyageid
+  with fill to arrival\_loc
+\item
+  some of the points have color as an argument
+\item
+  theme -\/- figure size enlarged
+\item
+  theme -\/- element\_text rotate the text
+\item
+  xlab, ylab, title to name them
+\end{itemize}
+
+\section{Aesthetic 5.4}\label{aesthetic-5.4}
+
+\subsubsection{Components}\label{components-1}
+
+\begin{itemize}
+\tightlist
+\item
+  voyage\_100\_from\_data2 is a Pandas DataFrame
+\item
+  'yearam','average\_ratio', 'flag'
+\item
+  geom\_point -\/- create scatterplot, alpha change color to opaque
+\item
+  geom\_smooth create nonlinear scatter smoothing
+\end{itemize}
+
+\subsubsection{Creating the plot}\label{creating-the-plot-1}
+
+\begin{itemize}
+\tightlist
+\item
+  data was used with the arguments x to yearam and y to average\_ratio
+  with color to flag
+\item
+  figure size to enlarge the size of the graph
+\item
+  figure size enlarged
+\item
+  xlab, ylab, title to name them
+\item
+  theme -\/- figure\_size to enlarge the graph
+\item
+  facet wrap seperates into multiple graphs dependent on flag
+\end{itemize}
+
+    \textbf{Exercise 6.} Estimating total captives count I.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Plot the number of slaves at departure from last slaving and the
+  number that arrived at the first port of disembarkation.\\
+\item
+  Why do these variables concentrate near a line? Most of the data lies
+  on one side of the line, but a small fraction do not, what could have
+  happened for those that did not? Separate the data into these two
+  populations.
+\item
+  For those voyages where the number of captives decreased (through
+  death), calculate a death rate (ratio of captives that died).\\
+\item
+  Plot this death rate as a function of year. Make any appropriate scale
+  transformations, and include a trend line or other smoother. What is
+  your interpretation?
+\item
+  Guess at two possible predictors and create visualizations that give
+  you a sense of their association with the death rate. Make sure that
+  one of these is categorical, and plot it with the death rate and year
+  so that there are three variables used in the same plot.
+\item
+  For these plots, list the geoms, aesthetic mappings, scales, and other
+  notable aspects used.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}Question 6.1}
+         \PY{n}{data6}\PY{o}{=}\PY{n}{data}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         
+         \PY{p}{(}\PY{n}{p9}\PY{o}{.}\PY{n}{ggplot}\PY{p}{(}\PY{n}{data6}\PY{p}{,} \PY{n}{aes}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}point}\PY{p}{(}\PY{n}{na\PYZus{}rm}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}abline}\PY{p}{(}\PY{n}{intercept}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{slope}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{theme}\PY{p}{(}\PY{n}{figure\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{xlab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number Slaves at Depart}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{ylab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number Slaves at Arrive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{labels}\PY{o}{.}\PY{n}{ggtitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Slave Departure vs Slave Arrival}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} <ggplot: (292122923)>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{}Question 6.2}
+         
+         \PY{c+c1}{\PYZsh{}Collabarated with Jared Yu, Tiffany Chen, Sangeetha Ramamurthy}
+         
+         \PY{c+c1}{\PYZsh{}https://stackoverflow.com/questions/19991445/run\PYZhy{}an\PYZhy{}ols\PYZhy{}regression\PYZhy{}with\PYZhy{}pandas\PYZhy{}data\PYZhy{}frame?fbclid=IwAR14oaT\PYZhy{}k11bixUDWxl0oI2Coy0dwKyd9aUQYzGOCAe2JQ4x0yTZx5nSJo0}
+         
+         \PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below} \PY{o}{=} \PY{n}{data6}\PY{p}{[}\PY{n}{data6}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{data6}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} \PY{c+c1}{\PYZsh{}create below dataframe}
+         \PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}above} \PY{o}{=} \PY{n}{data6}\PY{p}{[}\PY{n}{data6}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{data6}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} \PY{c+c1}{\PYZsh{}create above dataframe}
+         \PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}above}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{above\PYZus{}line}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+         \PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{above\PYZus{}line}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{False}
+         \PY{n}{data\PYZus{}6\PYZus{}3}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}above}\PY{p}{,} \PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{p}{(}\PY{n}{p9}\PY{o}{.}\PY{n}{ggplot}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}3}\PY{p}{,} \PY{n}{aes}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{above\PYZus{}line}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}point}\PY{p}{(}\PY{n}{na\PYZus{}rm}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}abline}\PY{p}{(}\PY{n}{intercept}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{slope}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{theme}\PY{p}{(}\PY{n}{figure\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{xlab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number Slaves at Depart}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{ylab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number Slaves at Arrive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{labels}\PY{o}{.}\PY{n}{ggtitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Slave Departure vs Slave Arrival (Seperated Population)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} <ggplot: (-9223372036562650045)>
+\end{Verbatim}
+            
+    The concentrate is due to the very close relationship between tslavesd
+and slaarriv. Since the points are close to the line, it means that the
+arrival and the departure are closely similar to each other. The ones on
+the line are equal to each other and the ones below meant that slaves
+died before arriving to their locations. However, it is possible to have
+more slaves as the last recorded locations may not be the last stop for
+the ship.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{}Question 6.3}
+         
+         \PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below} \PY{o}{=} \PY{n}{data6}\PY{p}{[}\PY{n}{data6}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{data6}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}above} \PY{o}{=} \PY{n}{data6}\PY{p}{[}\PY{n}{data6}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{data6}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}above}\PY{o}{.}\PY{n}{shape} 
+         \PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{o}{.}\PY{n}{shape}
+         
+         \PY{n}{death\PYZus{}ratio} \PY{o}{=}\PY{p}{(} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                      \PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}create death ratio}
+         \PY{n}{death\PYZus{}ratio}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} 0.12428683337095228
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{}Question 6.4}
+         
+         \PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{death\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                                        \PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log\PYZus{}death\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{death\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}take log}
+         
+         \PY{p}{(}\PY{n}{p9}\PY{o}{.}\PY{n}{ggplot}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{p}{,} \PY{n}{aes}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log\PYZus{}death\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}point}\PY{p}{(}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fill}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{theme}\PY{p}{(}\PY{n}{figure\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{xlab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{ylab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Death Ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{labels}\PY{o}{.}\PY{n}{ggtitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year vs Death Ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} <ggplot: (-9223372036568736838)>
+\end{Verbatim}
+            
+    Normality is violated, since the data seems to be left-skewed. The trend
+appears to be decreasing. However, homoscedasticity is violated.
+Therefore, it appears that applying a linear regression on this data is
+not the best method of analyzing the data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{}Question 6.5}
+         
+         \PY{c+c1}{\PYZsh{}Collabarated with Tiffany Chen and Sangeetha Ramamurthy}
+         
+         \PY{n}{data8}\PY{o}{=}\PY{n}{data}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{data\PYZus{}6\PYZus{}5}\PY{o}{=}\PY{n}{data8}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{national}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tonnage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below} \PY{o}{=} \PY{n}{data\PYZus{}6\PYZus{}5}\PY{p}{[}\PY{n}{data\PYZus{}6\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{data\PYZus{}6\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}above} \PY{o}{=} \PY{n}{data\PYZus{}6\PYZus{}5}\PY{p}{[}\PY{n}{data\PYZus{}6\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{data\PYZus{}6\PYZus{}5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{death\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                                        \PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log\PYZus{}death\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}2\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{death\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{table\PYZus{}4} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mf}{1.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{2.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Uruguay}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{4.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Portugal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{5.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Brazil}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{l+m+mf}{7.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Great\PYZus{}Britain}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{8.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Netherlands}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{9.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{USA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{l+m+mf}{10.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{France}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{11.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Denmark}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{12.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hanse\PYZus{}Town}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+m+mf}{13.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sweden}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{14.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Norway}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{16.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Argentina}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                    \PY{l+m+mf}{17.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Russia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{18.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sardinia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+m+mf}{19.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mexico}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{24.0} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genoa}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{p}{[}\PY{n}{table\PYZus{}4}\PY{p}{[}\PY{n}{row}\PY{p}{]} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{national}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{data\PYZus{}6\PYZus{}6\PYZus{}below}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x1}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x3}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tonnage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log\PYZus{}death\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{p}{(}\PY{n}{p9}\PY{o}{.}\PY{n}{ggplot}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}6\PYZus{}below}\PY{p}{,} \PY{n}{aes}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}point}\PY{p}{(}\PY{n}{aes}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{shape}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{n}{na\PYZus{}rm}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{geom\PYZus{}smooth}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lowess}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{theme}\PY{p}{(}\PY{n}{figure\PYZus{}size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{xlab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{ylab}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Death Ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{o}{+}\PY{n}{p9}\PY{o}{.}\PY{n}{labels}\PY{o}{.}\PY{n}{ggtitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Death Ratio vs Year with Tonnage and Nationality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} <ggplot: (-9223372029308920439)>
+\end{Verbatim}
+            
+    Brazil, USA are the only countires with slightly linear positive
+relationship between year and death ratio Mexico and Uruguay only have
+one point. The rest of the countries have negative relationships between
+year and death ratio. It implies that captive deaths went down as the
+year went by. These countries are closer to Africa compared to Mexico
+and USA.
+
+These graphs are not good at showing the impact of tonnage. Ships that
+handle larger shipments of slaves than others provide higher death rates
+due to longer trips.
+
+    \section{Aesthetic 6.1}\label{aesthetic-6.1}
+
+\subsubsection{Components}\label{components}
+
+\begin{itemize}
+\tightlist
+\item
+  data6 is a Pandas DataFrame
+\item
+  x1,x2,x3,x4
+\item
+  Geom\_point to create scatterplot, alpha change color to opaque
+\item
+  geom\_abline to create y=x line
+\end{itemize}
+
+\subsubsection{Creating the plot}\label{creating-the-plot}
+
+\begin{itemize}
+\tightlist
+\item
+  data was used with the arguments x1 to yearam, x2 to flag, x3 to
+  tonnage
+\item
+  color to flag
+\item
+  theme -\/- figure size enlarged
+\item
+  xlab, ylab, title to name them
+\item
+  facet wrap seperates into multiple graphs dependent on flag
+\end{itemize}
+
+\section{Aesthetic 6.2}\label{aesthetic-6.2}
+
+\subsubsection{Components}\label{components-1}
+
+\begin{itemize}
+\tightlist
+\item
+  data\_6\_3 is a Pandas DataFrame
+\item
+  'tslavesd','slaarriv', 'above\_line'
+\item
+  Geom\_point to create scatterplot, alpha change color to opaque
+\item
+  geom\_abline to create y=x line
+\end{itemize}
+
+\subsubsection{Creating the plot}\label{creating-the-plot-1}
+
+\begin{itemize}
+\tightlist
+\item
+  data was used with the arguments x to tslavesd, y to slaarriv
+\item
+  color to above\_line
+\item
+  theme -\/- figure size enlarged
+\item
+  xlab, ylab, title to name them
+\item
+  facet wrap seperates into multiple graphs dependent on flag
+\end{itemize}
+
+\section{Aesthetic 6.5}\label{aesthetic-6.5}
+
+\subsubsection{Components}\label{components-2}
+
+\begin{itemize}
+\tightlist
+\item
+  data\_6\_6\_below is a Pandas DataFrame
+\item
+  x1, x2, x3, y
+\item
+  Geom\_point to create scatterplot, alpha change color to opaque, color
+  and shape
+\item
+  geom\_smooth to create non-linear scatterplot smoothing
+\end{itemize}
+
+\subsubsection{Creating the plot}\label{creating-the-plot-2}
+
+\begin{itemize}
+\tightlist
+\item
+  data was used with the arguments x1 to yearam, x2 to flag, x3 to
+  tonnage y to slaarriv
+\item
+  theme -\/- figure size enlarged
+\item
+  xlab, ylab, title to name them
+\item
+  facet wrap seperates into multiple graphs dependent on flag
+\end{itemize}
+
+    \textbf{Exercise 7.} Estimating total captives count II.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Using the variables selected, fit a prediction of death rate using
+  linear regression and some simple transformations/scales. You do not
+  need to spend time doing automated model selection, just include the
+  most likely predictor or predictors from the previous question.
+\item
+  We will impute the number of captives on board at departure, so
+  enumerate the cases for missingness of the variables involved in the
+  prediction.
+\item
+  We would like to predict the number of captives on departure from the
+  number that arrived with the following formula, \[
+  \textrm{arrived} = \pi (1 - \textrm{death rate}) \cdot (\textrm{captives taken}) + (1- \pi) (\textrm{average increase})
+  \] where \(\pi\) is the proportion of voyages with no increase in
+  captives, and the average increase is over those that did see an
+  increase. For those voyages with captives taken missing and arrived
+  not missing, use the estimated death rate to predict the captives
+  taken.
+\item
+  Impute the remainder by predicting the captives taken with the year
+  variable, you can use simple linear regression.
+\item
+  With the same formula and method impute the number of captives upon
+  arrival whenever it is missing.
+\item
+  Give a new estimate of the predicted total number of captives taken on
+  the middle passage, the total number of deaths, and the overall death
+  rate. How does this differ from your first estimate obtained by
+  assuming MCAR?
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{}Question 7.1}
+         
+         \PY{c+c1}{\PYZsh{}Collabarated with Tiffany Chen and Sangeetha Ramamurthy}
+         \PY{n}{data\PYZus{}7\PYZus{}below}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x1}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x2}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x3}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tonnage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{death\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{n}{model\PYZus{}1}\PY{o}{=}\PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{n}{formula}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZti{}x1+x2+x3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{data\PYZus{}7\PYZus{}below}\PY{p}{,} \PY{n}{missing}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model\PYZus{}1}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} <class 'statsmodels.iolib.summary.Summary'>
+         """
+                                     OLS Regression Results                            
+         ==============================================================================
+         Dep. Variable:                      y   R-squared:                       0.051
+         Model:                            OLS   Adj. R-squared:                  0.047
+         Method:                 Least Squares   F-statistic:                     13.84
+         Date:                Mon, 05 Nov 2018   Prob (F-statistic):           3.01e-26
+         Time:                        15:16:17   Log-Likelihood:                 1580.4
+         No. Observations:                2867   AIC:                            -3137.
+         Df Residuals:                    2855   BIC:                            -3065.
+         Df Model:                          11                                         
+         Covariance Type:            nonrobust                                         
+         =======================================================================================
+                                   coef    std err          t      P>|t|      [0.025      0.975]
+         ---------------------------------------------------------------------------------------
+         Intercept               1.5912      0.143     11.114      0.000       1.310       1.872
+         x2[T.Denmark]           0.1192      0.055      2.184      0.029       0.012       0.226
+         x2[T.France]           -0.0237      0.015     -1.541      0.123      -0.054       0.006
+         x2[T.Great\_Britain]    -0.0328      0.015     -2.149      0.032      -0.063      -0.003
+         x2[T.Mexico]            0.0108      0.140      0.077      0.939      -0.264       0.286
+         x2[T.Netherlands]      -0.0351      0.022     -1.606      0.108      -0.078       0.008
+         x2[T.Portugal]          0.0272      0.017      1.619      0.105      -0.006       0.060
+         x2[T.Spain]             0.0330      0.020      1.641      0.101      -0.006       0.072
+         x2[T.USA]               0.0477      0.016      2.986      0.003       0.016       0.079
+         x2[T.Uruguay]          -0.0375      0.140     -0.267      0.790      -0.313       0.238
+         x1                     -0.0008   7.79e-05    -10.585      0.000      -0.001      -0.001
+         x3                   5.552e-05   1.95e-05      2.846      0.004    1.73e-05    9.38e-05
+         ==============================================================================
+         Omnibus:                     1209.374   Durbin-Watson:                   1.788
+         Prob(Omnibus):                  0.000   Jarque-Bera (JB):             5340.628
+         Skew:                           2.045   Prob(JB):                         0.00
+         Kurtosis:                       8.290   Cond. No.                     9.86e+04
+         ==============================================================================
+         
+         Warnings:
+         [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+         [2] The condition number is large, 9.86e+04. This might indicate that there are
+         strong multicollinearity or other numerical problems.
+         """
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{}Question 7.2}
+         
+         \PY{n}{data9}\PY{o}{=}\PY{n}{data}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{data9}\PY{o}{=}\PY{n}{data9}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{data9}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:}    voyageid  evgreen    shipname  national  placcons  yrcons  placreg  yrreg  \textbackslash{}
+         0         1      1.0          -1       4.0      -1.0    -1.0     -1.0   -1.0   
+         1         2      1.0     Tibério      -1.0      -1.0    -1.0     -1.0   -1.0   
+         2         3      1.0          -1      -1.0      -1.0    -1.0     -1.0   -1.0   
+         3         4      1.0          -1      -1.0      -1.0    -1.0     -1.0   -1.0   
+         4         5      1.0  Benigretta      -1.0      -1.0    -1.0     -1.0   -1.0   
+         
+             rig  tonnage   {\ldots}    sourcei  sourcej sourcek sourcel sourcem sourcen  \textbackslash{}
+         0  40.0     -1.0   {\ldots}         -1       -1      -1      -1      -1      -1   
+         1  40.0     -1.0   {\ldots}         -1       -1      -1      -1      -1      -1   
+         2  40.0     -1.0   {\ldots}         -1       -1      -1      -1      -1      -1   
+         3  40.0     -1.0   {\ldots}         -1       -1      -1      -1      -1      -1   
+         4  25.0     -1.0   {\ldots}         -1       -1      -1      -1      -1      -1   
+         
+           sourceo sourcep sourceq sourcer  
+         0      -1      -1      -1    -1.0  
+         1      -1      -1      -1    -1.0  
+         2      -1      -1      -1    -1.0  
+         3      -1      -1      -1    -1.0  
+         4      -1      -1      -1    -1.0  
+         
+         [5 rows x 89 columns]
+\end{Verbatim}
+            
+    We used -1 to ennurmance the data since nothing in this data unless
+transformed is -1. It will be simple to replace with imputed data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{}Question 7.3}
+         
+         \PY{c+c1}{\PYZsh{}Collabarated with Tiffany Chen}
+         
+         \PY{n}{pie} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{)} \PY{o}{+} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}above}\PY{p}{)}\PY{p}{)}
+         \PY{n}{death\PYZus{}rate} \PY{o}{=} \PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                      \PY{p}{)}\PY{o}{/}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}below}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{average\PYZus{}increase} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}above}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{data\PYZus{}6\PYZus{}5\PYZus{}above}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data9}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if}\PY{p}{(}\PY{n}{data9}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{row}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{data9}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{row}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{data9}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{row}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data9}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{row}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{death\PYZus{}rate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{}Question 7.4}
+         
+         \PY{c+c1}{\PYZsh{}Collabarated with Tiffany Chen and Sangeetha Ramamurthy}
+         
+         \PY{n}{arrived\PYZus{}imp} \PY{o}{=} \PY{n}{data9}\PY{p}{[}\PY{n}{data9}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{model\PYZus{}2}\PY{o}{=}\PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{arrived\PYZus{}imp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{arrived\PYZus{}imp}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}  \PY{n}{missing}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model\PYZus{}2}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} <class 'statsmodels.iolib.summary.Summary'>
+         """
+                                     OLS Regression Results                            
+         ==============================================================================
+         Dep. Variable:               tslavesd   R-squared:                       0.761
+         Model:                            OLS   Adj. R-squared:                  0.761
+         Method:                 Least Squares   F-statistic:                 6.560e+04
+         Date:                Mon, 05 Nov 2018   Prob (F-statistic):               0.00
+         Time:                        15:17:03   Log-Likelihood:            -1.3572e+05
+         No. Observations:               20586   AIC:                         2.715e+05
+         Df Residuals:                   20585   BIC:                         2.715e+05
+         Df Model:                           1                                         
+         Covariance Type:            nonrobust                                         
+         ==============================================================================
+                          coef    std err          t      P>|t|      [0.025      0.975]
+         ------------------------------------------------------------------------------
+         yearam         0.1781      0.001    256.133      0.000       0.177       0.179
+         ==============================================================================
+         Omnibus:                     3719.065   Durbin-Watson:                   1.165
+         Prob(Omnibus):                  0.000   Jarque-Bera (JB):             9557.971
+         Skew:                           0.994   Prob(JB):                         0.00
+         Kurtosis:                       5.681   Cond. No.                         1.00
+         ==============================================================================
+         
+         Warnings:
+         [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+         """
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{}Question 7.5}
+         
+         \PY{c+c1}{\PYZsh{}Collabarated with Tiffany Chen}
+         
+         \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data9}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{data9}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{row}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.0}\PY{p}{:}
+                 \PY{n}{data9}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{row}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{model\PYZus{}2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{data9}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{row}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                 
+         \PY{n}{data9}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} False    34941
+         Name: tslavesd, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{}Collabarated with Tiffany Chen}
+         
+         \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data9}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{data9}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{row}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.0}\PY{p}{:}
+                 \PY{n}{data9}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{row}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{pie}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{death\PYZus{}rate}\PY{p}{)}\PY{o}{*}
+                                               \PY{n}{data9}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{row}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tslavesd}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+                                              \PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}} \PY{n}{pie}\PY{p}{)}\PY{o}{*}\PY{n}{average\PYZus{}increase}\PY{p}{)}
+                 
+         \PY{n}{data9}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} False    34941
+         Name: slaarriv, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{}Question 7.6}
+         
+         \PY{c+c1}{\PYZsh{}Collabarated with Tiffany Chen}
+         
+         \PY{n}{estimate\PYZus{}captive}\PY{o}{=}\PY{n}{data9}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{data9}\PY{o}{=}\PY{n}{data9}\PY{p}{[}\PY{n}{data9}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tslavesd}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{data9}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{slaarriv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{estimate\PYZus{}death}\PY{o}{=}\PY{n}{data9}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tslavesd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{data9}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slaarriv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{estimate\PYZus{}death\PYZus{}rate} \PY{o}{=} \PY{n}{estimate\PYZus{}death}\PY{o}{/}\PY{n}{estimate\PYZus{}captive}
+\end{Verbatim}
+
+
+    Estimate captive: 10971163.556957753
+
+Initial captive: 11569160.328337597
+
+Estimate deaths: 1650046.2795754727
+
+Estimate death rate: 0.1503984760603662
+
+Initial death rate: 0.12428683337095228
+
+The inital estimate was using simple mathematical multiplication, while
+the estimate uses a simple linear regression to fill in the NA values.
+Therefore, the model we used is not the best and there can be a better
+model.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
