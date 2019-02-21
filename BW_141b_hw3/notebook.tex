@@ -1,0 +1,679 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{BW\_141b\_hw3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{STA 141B: Homework 3}\label{sta-141b-homework-3}
+
+Fall 2018
+
+    \subsection{Information}\label{information}
+
+After the colons (in the same line) please write just your first name,
+last name, and the 9 digit student ID number below.
+
+First Name: Bailey
+
+Last Name: Wang
+
+Student ID: 914955801
+
+    \subsection{Instructions}\label{instructions}
+
+\subsubsection{New item: Please print your answer notebook to pdf (make
+sure that it is not too many pages, \textgreater{} 10, due to long
+output) and submit as the homework solution with your zip
+file.}\label{new-item-please-print-your-answer-notebook-to-pdf-make-sure-that-it-is-not-too-many-pages-10-due-to-long-output-and-submit-as-the-homework-solution-with-your-zip-file.}
+
+We use a script that extracts your answers by looking for cells in
+between the cells containing the exercise statements. So you
+
+\begin{itemize}
+\tightlist
+\item
+  MUST add cells in between the exercise statements and add answers
+  within them and
+\item
+  MUST NOT modify the existing cells, particularly not the problem
+  statement
+\end{itemize}
+
+To make markdown, please switch the cell type to markdown (from code) -
+you can hit 'm' when you are in command mode - and use the markdown
+language. For a brief tutorial see:
+https://daringfireball.net/projects/markdown/syntax
+
+    \subsubsection{Introduction}\label{introduction}
+
+The US Department of Agriculture publishes price estimates for fruits
+and vegetables
+\href{https://www.ers.usda.gov/data-products/fruit-and-vegetable-prices/fruit-and-vegetable-prices/}{online}.
+The most recent estimates are based on a 2013 survey of US retail
+stores.
+
+The estimates are provided as a collection of MS Excel files, with one
+file per fruit or vegetable. The \texttt{hw3\_data.zip} file contains
+the fruit and vegetable files in the directories \texttt{fruit} and
+\texttt{vegetables}, respectively.
+
+    \textbf{Exercise 1.} Use pandas to extract the "Fresh" row(s) from the
+fruit Excel files. Combine the data into a single data frame. Your data
+frame should look something like this:
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+type & food & form & price\_per\_lb & yield & lb\_per\_cup &
+price\_per\_cup\tabularnewline
+\midrule
+\endhead
+fruit & watermelon & Fresh1 & 0.333412 & 0.52 & 0.330693 &
+0.212033\tabularnewline
+fruit & cantaloupe & Fresh1 & 0.535874 & 0.51 & 0.374786 &
+0.3938\tabularnewline
+vegetables & onions & Fresh1 & 1.03811 & 0.9 & 0.35274 &
+0.406868\tabularnewline
+... & & & & & &\tabularnewline
+\bottomrule
+\end{longtable}
+
+It's okay if the rows and columns of your data frame are in a different
+order. These modules are especially relevant:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://docs.python.org/2/library/stdtypes.html\#string-methods}{\texttt{str}
+  methods}
+\item
+  \href{https://docs.python.org/2/library/os.html}{\texttt{os}}
+\item
+  \href{https://docs.python.org/2/library/os.path.html}{\texttt{os.path}}
+\item
+  \href{http://pandas.pydata.org/pandas-docs/stable/}{pandas}:
+  \texttt{read\_excel()}, \texttt{concat()}, \texttt{.fillna()},
+  \texttt{.str}, plotting methods
+\end{itemize}
+
+Ask questions and search the documentation/web to find the functions you
+need.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}Collabarated with Tiffany Chen}
+        
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k}{def} \PY{n+nf}{fruit\PYZus{}function}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{,} \PY{n}{subfile\PYZus{}name}\PY{p}{)}\PY{p}{:}
+            
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Takes in a file path and the subfile which is the food type into the function. }
+        \PY{l+s+sd}{     The function cleans the data by concating the food types into a new dataframe. }
+        \PY{l+s+sd}{     The function also subsets the data into \PYZdq{}fresh\PYZdq{} and \PYZdq{}fresh1\PYZdq{} food types.}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Args:}
+        \PY{l+s+sd}{        file\PYZus{}name: str}
+        \PY{l+s+sd}{        subfile\PYZus{}name: str}
+        \PY{l+s+sd}{        }
+        \PY{l+s+sd}{    Returns:}
+        \PY{l+s+sd}{        fruit1: Pandas dataframe}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            
+            \PY{n}{fruit\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{,} \PY{n}{subfile\PYZus{}name}\PY{p}{)}
+            \PY{n}{ls\PYZus{}fruit\PYZus{}file} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{fruit\PYZus{}path}\PY{p}{)}
+            
+            \PY{n}{fruit1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+            
+            \PY{k}{for} \PY{n}{file} \PY{o+ow}{in} \PY{n}{ls\PYZus{}fruit\PYZus{}file}\PY{p}{:}
+                \PY{n}{fruit2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{n}{fruit\PYZus{}path} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{file}\PY{p}{,} \PY{n}{header} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{fruit2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{food}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{file}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{fruit2}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{subfile\PYZus{}name}
+                \PY{n}{fruit1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{fruit2}\PY{p}{,} \PY{n}{fruit1}\PY{p}{]}\PY{p}{,}\PY{n}{sort} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+                
+            \PY{n}{fruit1} \PY{o}{=} \PY{n}{fruit1}\PY{p}{[}\PY{n}{fruit1}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Form}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fresh}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}\PY{p}{]}
+            
+            \PY{n}{fruit1} \PY{o}{=} \PY{n}{fruit1}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Unnamed: 8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{fruit1} \PY{o}{=} \PY{n}{fruit1}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price\PYZus{}per\PYZus{}cup}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average retail price }\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price\PYZus{}per\PYZus{}lb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Preparation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yield}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                                              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Size of a }\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lb\PYZus{}per\PYZus{}cup}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Form}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{form}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+            \PY{n}{fruit1} \PY{o}{=} \PY{n}{fruit1}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{food}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{form}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price\PYZus{}per\PYZus{}lb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yield}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lb\PYZus{}per\PYZus{}cup}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price\PYZus{}per\PYZus{}cup}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}
+            \PY{n}{fruit1}\PY{o}{=} \PY{n}{fruit1}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+            \PY{k}{return}\PY{p}{(}\PY{n}{fruit1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{fruit3} \PY{o}{=} \PY{n}{fruit\PYZus{}function}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hw3\PYZus{}data/}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fruit}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}call for fruits}
+        \PY{n}{fruit3}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}     type          food    form price\_per\_lb yield lb\_per\_cup price\_per\_cup
+        0  fruit    watermelon  Fresh1     0.333412  0.52   0.330693      0.212033
+        1  fruit    tangerines  Fresh1      1.37796  0.74   0.407855      0.759471
+        2  fruit  strawberries  Fresh1      2.35881  0.94    0.31967      0.802171
+        3  fruit   raspberries  Fresh1      6.97581  0.96    0.31967       2.32287
+        4  fruit   pomegranate  Fresh1      2.17359  0.56   0.341717       1.32634
+\end{Verbatim}
+            
+    There are 24 rows in fruit data.
+
+    \textbf{Exercise 2.} Reuse your code from exercise 1.1 to extract the
+"Fresh" row(s) from the vegetable Excel files.
+
+Does your code produce the correct prices for tomatoes? If not, why not?
+Do any other files have the same problem as the tomatoes file?
+
+You don't need to extract the prices for these problem files. However,
+make sure the prices are extracted for files like asparagus that don't
+have this problem.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}Collabarated with Jared Yu}
+        
+        \PY{n}{vegetable1} \PY{o}{=}\PY{n}{fruit\PYZus{}function}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hw3\PYZus{}data/}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{vegetables}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}call for vegetables }
+        
+        \PY{n}{vegetable1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green\PYZus{}cabbage}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}rename food type}
+        \PY{n}{vegetable1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red\PYZus{}cabbage}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{vegetable1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{24}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unpeeled\PYZus{}cucumber}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{vegetable1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{food}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{peeled\PYZus{}cucumber}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n}{vegetable1}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}          type            food    form price\_per\_lb     yield lb\_per\_cup  \textbackslash{}
+        0  vegetables   turnip\_greens  Fresh1      2.47175      0.75    0.31967   
+        1  vegetables        tomatoes   Fresh          NaN       NaN        NaN   
+        2  vegetables  sweet\_potatoes  Fresh1     0.918897  0.811301   0.440925   
+        3  vegetables   summer\_squash  Fresh1      1.63948    0.7695   0.396832   
+        4  vegetables         spinach  Fresh1          NaN       NaN        NaN   
+        
+          price\_per\_cup  
+        0       1.05353  
+        1           NaN  
+        2        0.4994  
+        3       0.84548  
+        4           NaN  
+\end{Verbatim}
+            
+    There are 33 rows in the vegetable data.
+
+The vegetables with N/A values are tomatoes, spinach, mushrooms,
+lettuce\_romaine, celery, cauliflower, broccoli, and carrots. In total
+there are 8 rows with errors.
+
+    \textbf{Exercise 3.} Remove rows without a price from the vegetable data
+frame and then combine the fruit and vegetable data frames. Make sure
+all columns of numbers are numeric (not strings).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}Collabarated with Jared Yu}
+        
+        \PY{n}{vegetable2} \PY{o}{=} \PY{n}{vegetable1}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}drops na values in the dataframe}
+        \PY{n}{food1} \PY{o}{=} \PY{p}{[}\PY{n}{fruit3}\PY{p}{,} \PY{n}{vegetable2}\PY{p}{]}
+        \PY{n}{food2} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price\PYZus{}per\PYZus{}cup}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price\PYZus{}per\PYZus{}lb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yield}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lb\PYZus{}per\PYZus{}cup}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{food3} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{food1}\PY{p}{)}
+        \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{food2}\PY{p}{:}
+            \PY{n}{food3}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{food3}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)} \PY{c+c1}{\PYZsh{}in the for loop, }
+        \PY{n}{food3}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}                             \PY{c+c1}{\PYZsh{}converts the listed objects into floats}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}     type          food    form  price\_per\_lb  yield  lb\_per\_cup  price\_per\_cup
+        0  fruit    watermelon  Fresh1      0.333412   0.52    0.330693       0.212033
+        1  fruit    tangerines  Fresh1      1.377962   0.74    0.407855       0.759471
+        2  fruit  strawberries  Fresh1      2.358808   0.94    0.319670       0.802171
+        3  fruit   raspberries  Fresh1      6.975811   0.96    0.319670       2.322874
+        4  fruit   pomegranate  Fresh1      2.173590   0.56    0.341717       1.326342
+\end{Verbatim}
+            
+    There are 25 vegetables after dropping the N/A values.
+
+There are 49 rows for the table with fruits and vegetables.
+
+    \textbf{Exercise 4.} Discuss the questions below (a paragraph each is
+sufficient). Use plots to support your ideas.
+
+\begin{itemize}
+\tightlist
+\item
+  What kinds of fruits are the most expensive (per pound)? What kinds
+  are the least expensive?
+\item
+  How do the price distributions compare for fruit and vegetables?
+\item
+  Which foods are the best value for the price?
+\item
+  What's something surprising about this data set?
+\item
+  Which foods do you expect to provide the best combination of price,
+  yield, and nutrition? A future assignment may combine this data set
+  with another so you can check your hypothesis.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{fruit4} \PY{o}{=} \PY{n}{food3}\PY{p}{[}\PY{n}{food3}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fruit}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{}creates subgroup for only fruits}
+        
+        \PY{n}{x\PYZus{}pos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{fruit4}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}creates tick locations for all the foods}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{fruit4}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{food}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fruit4}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price\PYZus{}per\PYZus{}lb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                    \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}creates the graph}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{x\PYZus{}pos}\PY{p}{,} \PY{n}{fruit4}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{food}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)} \PY{c+c1}{\PYZsh{}writes the labels}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fruits}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{13}\PY{p}{)} \PY{c+c1}{\PYZsh{}creates xlabel}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price per lb (\PYZdl{})}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)} \PY{c+c1}{\PYZsh{}creates ylabel}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fruits vs Price per lb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)} \PY{c+c1}{\PYZsh{}creates title}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]} \PY{c+c1}{\PYZsh{}changes graph size}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}Prints graph}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Most Exepensive Fruits:
+
+Raspberries 6.97 per pound, Blackberries 5.77 per pound, Blueberries
+4.73 per pound
+
+Least Exepensive Fruits:
+
+Watermelon .33 per pound, Cantaloupe .53 per pound, Bananas .56 per
+pound
+
+Raspberries are the most expensive fruits. Interestly, the reason
+raspberries are so expensive is due to the fact that it has high
+proudction cost and low yield. Also it can only grow in certain areas.
+Watermelon are the least expensive fruits. These fruits contain a lot of
+mass therefore, it will take less take to harvest watermelons compared
+to berries.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{food3}\PY{p}{[}\PY{n}{food3}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fruit}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price\PYZus{}per\PYZus{}lb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{c+c1}{\PYZsh{}Make histogram}
+                 \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fruit}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}  \PY{c+c1}{\PYZsh{}for fruit}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{food3}\PY{p}{[}\PY{n}{food3}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{vegetables}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price\PYZus{}per\PYZus{}lb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{c+c1}{\PYZsh{}Make histogram}
+                 \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Vegetables}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}for vegetables}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price per lb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)} \PY{c+c1}{\PYZsh{}creates xlabel}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)} \PY{c+c1}{\PYZsh{}creates ylabel}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Foods vs Price per lb Distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)} \PY{c+c1}{\PYZsh{}creates title}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)} \PY{c+c1}{\PYZsh{}Create legend}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]} \PY{c+c1}{\PYZsh{}changes graph size}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}prints graph}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Most Exepensive Fruits:
+
+Raspberries 6.97 per pound, Blackberries 5.77 per pound Blueberries 4.73
+per pound
+
+Least Expensive Fruits:
+
+Watermelon .33 per pound, Cantaloupe .53 per pound, Bananas .56 per
+pound
+
+Most Expensive Vegetables:
+
+Okra 3.21 per pound, asparagus 3.21 per pound, Brussel Sprouts 2.76 per
+pound
+
+Least Expensive Vegetables:
+
+Potatoes .56 per pound, Sweet potatoes .91 per pound, Onions 1.03 per
+pound
+
+The vegatables with higher costs are not as expensive as the fruits with
+higher costs. Okra has a high cost due to the production during warmer
+seasons. Therefore, during winter seasons, the US imports okra from
+outside thus the cost increase. Potatoes are the cheapest, since they
+require very little work to produce. The mass of potatoes are also
+varies between medium and large potatoes.
+
+The fruit distribution (red) shows a skewed-right distribution, which
+might have a few outliers. The vegetable distribution (blue) shows a
+bimodel, and does not have any extreme outliers.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{food3}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{=}\PY{n}{food3}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yield}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{/}\PY{n}{food3}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price\PYZus{}per\PYZus{}lb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{}Create new variable for value }
+                                                             \PY{c+c1}{\PYZsh{}using yield and price\PYZus{}per\PYZus{}lb}
+         \PY{n}{x\PYZus{}pos} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{food3}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}creates tick locations for all the foods}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{x\PYZus{}pos}\PY{p}{,} \PY{n}{food3}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}creates the graph}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{x\PYZus{}pos}\PY{p}{,} \PY{n}{food3}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{food}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)} \PY{c+c1}{\PYZsh{}writes the labels}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Foods}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)} \PY{c+c1}{\PYZsh{}creates xlabel}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)} \PY{c+c1}{\PYZsh{}creates ylabel}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Foods vs Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)} \PY{c+c1}{\PYZsh{}creates title}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]} \PY{c+c1}{\PYZsh{}changes graph size}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}Prints graph}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    bananas have cheap cost at .56 and medium yield .64
+
+Watermelon have cheap cost at .33 and medium yield .52
+
+Potato have cheap cost at .56 and a high yield .81
+
+Sweet potato have cheap cost at .91 and a high yield .81
+
+The formula for value = yield / price\_per\_lb
+
+The fruits and vegetables varies between the cost and yield. The fruits
+with low cost have rather medium yields. Rather the vegatables have low
+cost and high yield. The best combination between cost and yield would
+be low cost and high yield. Therefore, watermelon and okra are
+considered the best value for price against yield.
+
+I find it interesting that many of the vegetables have medium to low
+yields but the price isn't low. Similarly, a lot of berries are
+extremely expensive compared to other fruits. The cheapest fruits have
+low yield, while the cheapest vegetables have the highest yield.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
